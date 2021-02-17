@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+</head>
+<body>
+<h1>To Do Listen</h1>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Optionen
+        </th>
+    </tr>
+    {% for todolist in todolists %}
+        <tr>
+            <td>
+                <a href="{{ url_for('list_entries', name=todolist.name) }}">{{ todolist.name }}</a>
+            </td>
+            <td>
+                <form method="POST" action="{{ url_for('remove_to_do_list') }}">
+                    <input type="hidden" name="pk" value="{{ todolist.pk }}">
+                    <button type="submit">Entfernen</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br>
+<form method="POST" action="{{ url_for('create_to_do_list') }}">
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name">
+    <button type="submit">Hinzufügen</button>
+</form>
+</body>
+</html>

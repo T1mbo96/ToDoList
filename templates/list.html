@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ todolist.name }}</title>
+</head>
+<body>
+<h1>{{ todolist.name }}</h1>
+<table>
+    <tr>
+        <th>
+            Eintrag
+        </th>
+        <th>
+            Optionen
+        </th>
+    </tr>
+    {% for entry in entries %}
+        <tr>
+            <td>
+                {{ entry.content }}
+            </td>
+            <td>
+                <form method="POST" action="{{ url_for('remove_entry') }}">
+                    <input type="hidden" name="pk" value="{{ entry.pk }}">
+                    <input type="hidden" name="todolist" value="{{ todolist.pk }}">
+                    <button type="submit">Entfernen</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br>
+<form method="POST" action="{{ url_for('create_entry') }}">
+    <label for="content">Inhalt</label>
+    <input id="content" type="text" name="content">
+    <input type="hidden" name="todolist" value="{{ todolist.pk }}">
+    <button type="submit">Hinzufügen</button>
+</form>
+</body>
+</html>
